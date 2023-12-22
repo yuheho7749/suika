@@ -9,7 +9,7 @@ public class ContainerLid : MonoBehaviour
         Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
         if (rb.velocity.y >= 0)
         {
-            GameController.current.Lose();
+            GameController.instance.Lose();
         }
 
     }

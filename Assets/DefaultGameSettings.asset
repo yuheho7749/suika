@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DefaultGameSettings
   m_EditorClassIdentifier: 
   gravity: -9.8
-  dropperMaxWidth: 3.05
+  dropperMaxWidth: 3.1
+  useDynamicDropperEdgeOffset: 0
   maxStartingFruit: 6
   physicsMaterial: {fileID: 6200000, guid: 3e4fa61193b0bfc43830228b2c5c4dee, type: 2}
   fruitList:

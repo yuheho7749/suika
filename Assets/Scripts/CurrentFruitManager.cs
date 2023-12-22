@@ -19,22 +19,22 @@ public class CurrentFruitManager : MonoBehaviour
 
     private void Start()
     {
-        fruitImages = new GameObject[GameController.current.gameSettings.fruitList.Length];
+        fruitImages = new GameObject[GameController.instance.gameSettings.fruitList.Length];
 
-        minOriginalSize = GameController.current.gameSettings.fruitList[1].size;
-        maxOriginalSize = GameController.current.gameSettings.fruitList[GameController.current.gameSettings.maxStartingFruit - 1].size;
+        minOriginalSize = GameController.instance.gameSettings.fruitList[1].size;
+        maxOriginalSize = GameController.instance.gameSettings.fruitList[GameController.instance.gameSettings.maxStartingFruit - 1].size;
 
         for (int i = 0; i < fruitImages.Length; i ++)
         {
-            fruitImages[i] = Instantiate(GameController.current.gameSettings.fruitList[i].fruitPrefab, pos);
-            float newFruitSize = ScaleFruitSize(GameController.current.gameSettings.fruitList[i].size);
+            fruitImages[i] = Instantiate(GameController.instance.gameSettings.fruitList[i].fruitPrefab, pos);
+            float newFruitSize = ScaleFruitSize(GameController.instance.gameSettings.fruitList[i].size);
             fruitImages[i].transform.localScale = new Vector3(newFruitSize, newFruitSize, newFruitSize);
             fruitImages[i].SetActive(false);
         }
 
         fruitid = 1;
-        ChangeFruit(fruitid, GameController.current.nextFruitid);
-        GameController.current.UpdateNextFruitEvent.AddListener(ChangeFruit);
+        ChangeFruit(fruitid, GameController.instance.nextFruitid);
+        GameController.instance.UpdateNextFruitEvent.AddListener(ChangeFruit);
     }
 
     public void ChangeFruit(int oldFruitid, int newFruitid)
@@ -51,6 +51,6 @@ public class CurrentFruitManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameController.current.UpdateNextFruitEvent.RemoveListener(ChangeFruit);
+        GameController.instance.UpdateNextFruitEvent.RemoveListener(ChangeFruit);
     }
 }

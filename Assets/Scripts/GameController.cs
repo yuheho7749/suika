@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController current;
+    public static GameController instance;
     public GameSettings gameSettings;
 
     private int score = 0;
@@ -21,13 +21,13 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        if (current && current != this)
+        if (instance && instance != this)
         {
             Destroy(this);
         } 
         else 
         {
-            current = this;
+            instance = this;
         }
 
         if (UpdateScoreEvent == null)

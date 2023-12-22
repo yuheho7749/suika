@@ -15,8 +15,8 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameController.current.UpdateScoreEvent.AddListener(UpdateScore);
-        GameController.current.LoseEvent.AddListener(ShowLoseScreen);
+        GameController.instance.UpdateScoreEvent.AddListener(UpdateScore);
+        GameController.instance.LoseEvent.AddListener(ShowLoseScreen);
         scoreboard = GetComponent<TextMeshProUGUI>();
         scoreboard.text = "0";
         HideLoseScreen();
@@ -39,7 +39,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameController.current.UpdateScoreEvent.RemoveListener(UpdateScore);
-        GameController.current.LoseEvent.RemoveListener(ShowLoseScreen);
+        GameController.instance.UpdateScoreEvent.RemoveListener(UpdateScore);
+        GameController.instance.LoseEvent.RemoveListener(ShowLoseScreen);
     }
 }

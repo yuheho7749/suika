@@ -16,19 +16,19 @@ public class Dropper : MonoBehaviour
     void Update()
     {
         Vector3 relativeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float offset = 0;
-        if (currentFruit)
+        float offset = GameController.instance.gameSettings.fruitList[GameController.instance.gameSettings.maxStartingFruit-1].size / 2;
+        if (currentFruit && GameController.instance.gameSettings.useDynamicDropperEdgeOffset)
         {
             offset = currentFruit.size / 2;
         }
 
         float mouseX = Mathf.Clamp(relativeMousePos.x, 
-            -GameController.current.gameSettings.dropperMaxWidth + offset, 
-            GameController.current.gameSettings.dropperMaxWidth - offset);
+            -GameController.instance.gameSettings.dropperMaxWidth + offset, 
+            GameController.instance.gameSettings.dropperMaxWidth - offset);
 
         gameObject.transform.position = new Vector2(mouseX, gameObject.transform.position.y);
 
-        if (Input.GetMouseButtonDown(0))
+        if (currentFruit && Input.GetMouseButtonDown(0))
         {
             DropFruit();
         }
@@ -36,7 +36,7 @@ public class Dropper : MonoBehaviour
 
     void SpawnNewFruit()
     {
-        currentFruit = GameController.current.GetCurrentFruit();
+        currentFruit = GameController.instance.GetCurrentFruit();
         currentFruitObject = Instantiate(currentFruit.fruitPrefab, transform);
 
         currentFruitObject.transform.localScale = new Vector3(currentFruit.size, currentFruit.size, currentFruit.size);
@@ -47,7 +47,8 @@ public class Dropper : MonoBehaviour
         FruitPhysics fp = currentFruitObject.GetComponent<FruitPhysics>();
         fp.type = currentFruit;
         fp.Drop();
-        GameController.current.ConsumeCurrentFruit();
-        SpawnNewFruit();
+        GameController.instance.ConsumeCurrentFruit();
+        currentFruit = null;
+        Invoke("SpawnNewFruit", GameController.instance.gameSettings.dropperSpawnDelay);
     }
 }

@@ -17,7 +17,7 @@ public class FruitPhysics : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         col = gameObject.GetComponent<CircleCollider2D>();
-        rb.sharedMaterial = GameController.current.gameSettings.physicsMaterial;
+        rb.sharedMaterial = GameController.instance.gameSettings.physicsMaterial;
         valid = true;
     }
 
@@ -39,7 +39,7 @@ public class FruitPhysics : MonoBehaviour
         FruitPhysics otherFruitPhysics = other.GetComponent<FruitPhysics>();
         if (valid && otherFruitPhysics.valid && otherFruitPhysics.type.size == this.type.size)
         {
-            GameController.current.HandleFruitMerge(this, otherFruitPhysics, this.type.size);
+            GameController.instance.HandleFruitMerge(this, otherFruitPhysics, this.type.size);
         }
     }
 }
