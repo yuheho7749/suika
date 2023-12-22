@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19e5c367d703714d930864854194ff2, type: 3}
+  m_Name: DefaultGameSettings
+  m_EditorClassIdentifier: 
+  gravity: -9.8
+  dropperMaxWidth: 3.05
+  maxStartingFruit: 6
+  physicsMaterial: {fileID: 6200000, guid: 3e4fa61193b0bfc43830228b2c5c4dee, type: 2}
+  fruitList:
+  - {fileID: 11400000, guid: 15b1b54501c8692458956b7b5af46baf, type: 2}
+  - {fileID: 11400000, guid: 77ec5b95160029d4e8177860c5717a23, type: 2}
+  - {fileID: 11400000, guid: ac43565270a8b4142bf878957bbb59b1, type: 2}
+  - {fileID: 11400000, guid: b6a0a4cb40fa5c54da9e34c657103589, type: 2}
+  - {fileID: 11400000, guid: eebf855837d002f4eac9a5d056312a8c, type: 2}
+  - {fileID: 11400000, guid: 249ab9ef31f46fc48af0052055d39c4e, type: 2}
+  - {fileID: 11400000, guid: 327de1605a7beac42ac7995dd77ab9b4, type: 2}
+  - {fileID: 11400000, guid: 96d7547ad6a65834fbaf9181e4b7d08f, type: 2}
+  - {fileID: 11400000, guid: 874b472ff2d2e304a8fe6061befcf05c, type: 2}
+  - {fileID: 11400000, guid: 375bf65f7854fa24da0d906ae5804f79, type: 2}
+  - {fileID: 11400000, guid: 637e88d4ac38cad44a6f722cb686b499, type: 2}
+  - {fileID: 11400000, guid: 60e251ea0c115714daf3e52e120d9535, type: 2}
+  pointSystem: 000000000100000003000000060000000a0000000f000000150000001c000000240000002d0000003700000042000000
