@@ -109,11 +109,8 @@ public class GameController : MonoBehaviour
     {
         int originalFruitid = sizeToFruitid[originalSize];
         int newFruitid = originalFruitid + 1;
-        if (newFruitid >= gameSettings.fruitList.Length)
-        {
-            return false;
-        }
 
+        // Calculate new fruit position
         Vector2 newPos = new Vector2((fruit1.transform.position.x + fruit2.transform.position.x) / 2,
                                       (fruit1.transform.position.y + fruit2.transform.position.y) / 2);
 
@@ -123,19 +120,24 @@ public class GameController : MonoBehaviour
         Destroy(fruit1.gameObject);
         Destroy(fruit2.gameObject);
 
-        // Create new fruit
-        GameObject newFruit = Instantiate(gameSettings.fruitList[newFruitid].fruitPrefab);
-        float correctSize = gameSettings.fruitList[newFruitid].size;
-        newFruit.transform.localScale = new Vector3(correctSize, correctSize, correctSize);
-        newFruit.transform.position = newPos;
-
-        FruitPhysics fp = newFruit.GetComponent<FruitPhysics>();
-        fp.type = gameSettings.fruitList[newFruitid];
-        fp.GetComponent<Collider2D>().enabled = true;
-        fp.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-
         // Update Score
         ChangeScore(idToPoints[originalFruitid]);
+
+        // Merge fruit if possible. Otherwise (in watermelon's case), disappear.
+        if (newFruitid < gameSettings.fruitList.Length)
+        {
+            // Create new fruit
+            GameObject newFruit = Instantiate(gameSettings.fruitList[newFruitid].fruitPrefab);
+            float correctSize = gameSettings.fruitList[newFruitid].size;
+            newFruit.transform.localScale = new Vector3(correctSize, correctSize, correctSize);
+            newFruit.transform.position = newPos;
+
+            FruitPhysics fp = newFruit.GetComponent<FruitPhysics>();
+            fp.type = gameSettings.fruitList[newFruitid];
+            fp.GetComponent<Collider2D>().enabled = true;
+            fp.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        }
+
 
         return true;
     }
