@@ -135,7 +135,7 @@ public class GameController : MonoBehaviour
         fp.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
 
         // Update Score
-        ChangeScore(idToPoints[newFruitid]);
+        ChangeScore(idToPoints[originalFruitid]);
 
         return true;
     }
