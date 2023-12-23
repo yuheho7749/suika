@@ -118,6 +118,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MouseSecondaryClick",
+                    "type": "Button",
+                    "id": "a7a4a676-f28f-4fb4-aecc-4ed5f9d223aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -140,6 +149,17 @@
                     "processors": "",
                     "groups": "KeyboardAndMouse",
                     "action": "MousePrimaryClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f2c7b88-3240-4d8d-92b1-3fedb6a317f6",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardAndMouse",
+                    "action": "MouseSecondaryClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -140,6 +140,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseSecondaryClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7a4a676-f28f-4fb4-aecc-4ed5f9d223aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -162,6 +171,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardAndMouse"",
                     ""action"": ""MousePrimaryClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f2c7b88-3240-4d8d-92b1-3fedb6a317f6"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardAndMouse"",
+                    ""action"": ""MouseSecondaryClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -199,6 +219,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_GameOverScreen = asset.FindActionMap("GameOverScreen", throwIfNotFound: true);
         m_GameOverScreen_MousePosition = m_GameOverScreen.FindAction("MousePosition", throwIfNotFound: true);
         m_GameOverScreen_MousePrimaryClick = m_GameOverScreen.FindAction("MousePrimaryClick", throwIfNotFound: true);
+        m_GameOverScreen_MouseSecondaryClick = m_GameOverScreen.FindAction("MouseSecondaryClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -370,12 +391,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IGameOverScreenActions> m_GameOverScreenActionsCallbackInterfaces = new List<IGameOverScreenActions>();
     private readonly InputAction m_GameOverScreen_MousePosition;
     private readonly InputAction m_GameOverScreen_MousePrimaryClick;
+    private readonly InputAction m_GameOverScreen_MouseSecondaryClick;
     public struct GameOverScreenActions
     {
         private @PlayerInputActions m_Wrapper;
         public GameOverScreenActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @MousePosition => m_Wrapper.m_GameOverScreen_MousePosition;
         public InputAction @MousePrimaryClick => m_Wrapper.m_GameOverScreen_MousePrimaryClick;
+        public InputAction @MouseSecondaryClick => m_Wrapper.m_GameOverScreen_MouseSecondaryClick;
         public InputActionMap Get() { return m_Wrapper.m_GameOverScreen; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -391,6 +414,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MousePrimaryClick.started += instance.OnMousePrimaryClick;
             @MousePrimaryClick.performed += instance.OnMousePrimaryClick;
             @MousePrimaryClick.canceled += instance.OnMousePrimaryClick;
+            @MouseSecondaryClick.started += instance.OnMouseSecondaryClick;
+            @MouseSecondaryClick.performed += instance.OnMouseSecondaryClick;
+            @MouseSecondaryClick.canceled += instance.OnMouseSecondaryClick;
         }
 
         private void UnregisterCallbacks(IGameOverScreenActions instance)
@@ -401,6 +427,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MousePrimaryClick.started -= instance.OnMousePrimaryClick;
             @MousePrimaryClick.performed -= instance.OnMousePrimaryClick;
             @MousePrimaryClick.canceled -= instance.OnMousePrimaryClick;
+            @MouseSecondaryClick.started -= instance.OnMouseSecondaryClick;
+            @MouseSecondaryClick.performed -= instance.OnMouseSecondaryClick;
+            @MouseSecondaryClick.canceled -= instance.OnMouseSecondaryClick;
         }
 
         public void RemoveCallbacks(IGameOverScreenActions instance)
@@ -441,5 +470,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnMousePosition(InputAction.CallbackContext context);
         void OnMousePrimaryClick(InputAction.CallbackContext context);
+        void OnMouseSecondaryClick(InputAction.CallbackContext context);
     }
 }

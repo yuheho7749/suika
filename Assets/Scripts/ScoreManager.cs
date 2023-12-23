@@ -45,7 +45,7 @@ public class ScoreManager : MonoBehaviour
 
     public void ToggleGameOverScreen(InputAction.CallbackContext obj)
     {
-        if (gameOverScreen.activeInHierarchy)
+        if (gameOverScreen && gameOverScreen.activeInHierarchy)
         {
             gameOverScreen.SetActive(false);
         } else

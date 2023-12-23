@@ -13,6 +13,7 @@ public class GameSettings : ScriptableObject
 
     public int maxStartingFruit = 1;
 
+    public PhysicsMaterial2D defaultPhysicsMaterial;
     public PhysicsMaterial2D physicsMaterial;
     public Fruit[] fruitList;
 
