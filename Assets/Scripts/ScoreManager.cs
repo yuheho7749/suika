@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour
     {
         GameController.instance.UpdateScoreEvent.AddListener(UpdateScore);
         GameController.instance.GameOverEvent.AddListener(ShowGameOverScreen);
-        GameController.instance.playerInputActions.GameOverScreen.MousePrimaryClick.started += ToggleGameOverScreen;
+        GameController.instance.playerInputActions.GameOverScreen.MousePrimaryClick.started += CloseGameOverScreen;
         scoreboard = GetComponent<TextMeshProUGUI>();
         scoreboard.text = "0";
         HideGameOverScreen();
@@ -43,9 +43,13 @@ public class ScoreManager : MonoBehaviour
         GameController.instance.playerInputActions.GameOverScreen.Enable();
     }
 
-    public void ToggleGameOverScreen(InputAction.CallbackContext obj)
+    public void CloseGameOverScreen(InputAction.CallbackContext obj)
     {
-        HideGameOverScreen();
+        if (gameOverScreen)
+        {
+            gameOverScreen.SetActive(false);
+            GameController.instance.playerInputActions.GameOverScreen.Disable();
+        } 
     }
 
     private void OnDestroy()

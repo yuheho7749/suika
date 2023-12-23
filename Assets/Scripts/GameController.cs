@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 
     private int score = 0;
     public UnityEvent<int> UpdateScoreEvent;
+    private bool isLost;
     public UnityEvent<int> GameOverEvent;
 
     public int currentFruitid = 1;
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour
         playerInputActions.GameScene.Enable();
 
         // Init game
+        isLost = false;
         Physics2D.gravity = new Vector2(0, gameSettings.gravity);
         BuildFruitDictionaries();
         nextFruitid = Random.Range(1, gameSettings.maxStartingFruit);
@@ -73,7 +75,11 @@ public class GameController : MonoBehaviour
     public void Lose()
     {
         playerInputActions.GameScene.Disable();
-        GameOverEvent?.Invoke(score);
+        if (!isLost)
+        {
+            isLost = true;
+            GameOverEvent?.Invoke(score);
+        }
     }
 
     public void Restart()

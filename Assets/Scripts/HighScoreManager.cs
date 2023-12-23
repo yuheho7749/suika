@@ -25,7 +25,16 @@ public class HighScoreManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighScore", score);
             highScore = score;
+            PlayerPrefs.Save();
         }
+    }
+
+    public void ClearHighScore()
+    {
+        highScore = 0;
+        PlayerPrefs.SetInt("HighScore", 0);
+        PlayerPrefs.Save();
+        highscoreboard.text = String.Format("{0}", 0);
     }
 
     private void OnDestroy()
