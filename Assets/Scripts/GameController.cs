@@ -71,10 +71,15 @@ public class GameController : MonoBehaviour
         Invoke("Restart", 5f); // Temp
     }
 
-    private void Restart()
+    public void Restart()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
     public void Update()

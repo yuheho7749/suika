@@ -28,7 +28,7 @@ public class Dropper : MonoBehaviour
 
         gameObject.transform.position = new Vector2(mouseX, gameObject.transform.position.y);
 
-        if (currentFruit && Input.GetMouseButtonDown(0))
+        if (currentFruit && IsMouseInPlayArea(relativeMousePos) && Input.GetMouseButtonDown(0))
         {
             DropFruit();
         }
@@ -50,5 +50,11 @@ public class Dropper : MonoBehaviour
         GameController.instance.ConsumeCurrentFruit();
         currentFruit = null;
         Invoke("SpawnNewFruit", GameController.instance.gameSettings.dropperSpawnDelay);
+    }
+
+    private bool IsMouseInPlayArea(Vector3 mousePos)
+    {
+        return -GameController.instance.gameSettings.dropperMaxWidth <= mousePos.x &&
+            mousePos.x <= GameController.instance.gameSettings.dropperMaxWidth;
     }
 }
