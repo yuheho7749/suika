@@ -9,17 +9,17 @@ public class ScoreManager : MonoBehaviour
 {
     private TextMeshProUGUI scoreboard;
     
-    public GameObject loseScreen;
+    public GameObject gameOverScreen; // TODO: Set lose screen
 
 
     // Start is called before the first frame update
     void Start()
     {
         GameController.instance.UpdateScoreEvent.AddListener(UpdateScore);
-        GameController.instance.LoseEvent.AddListener(ShowLoseScreen);
+        GameController.instance.LoseEvent.AddListener(ShowGameOverScreen);
         scoreboard = GetComponent<TextMeshProUGUI>();
         scoreboard.text = "0";
-        HideLoseScreen();
+        HideGameOverScreen();
     }
 
     public void UpdateScore(int newScore)
@@ -27,19 +27,19 @@ public class ScoreManager : MonoBehaviour
         scoreboard.text = String.Format("{0}", newScore);
     }
 
-    public void HideLoseScreen()
+    public void HideGameOverScreen()
     {
-        loseScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
     }
 
-    public void ShowLoseScreen(int score)
+    public void ShowGameOverScreen(int score)
     {
-        loseScreen.SetActive(true);
+        gameOverScreen.SetActive(true);
     }
 
     private void OnDestroy()
     {
         GameController.instance.UpdateScoreEvent.RemoveListener(UpdateScore);
-        GameController.instance.LoseEvent.RemoveListener(ShowLoseScreen);
+        GameController.instance.LoseEvent.RemoveListener(ShowGameOverScreen);
     }
 }
