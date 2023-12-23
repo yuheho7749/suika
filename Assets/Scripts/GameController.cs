@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class GameController : MonoBehaviour
 
     private int score = 0;
     public UnityEvent<int> UpdateScoreEvent;
-    public UnityEvent LoseEvent;
+    public UnityEvent<int> LoseEvent;
 
     public int currentFruitid = 1;
     public int nextFruitid = 1;
@@ -36,7 +37,7 @@ public class GameController : MonoBehaviour
         }
         if (LoseEvent == null)
         {
-            LoseEvent = new UnityEvent();
+            LoseEvent = new UnityEvent<int>();
         }
         if (UpdateNextFruitEvent == null)
         {
@@ -66,7 +67,14 @@ public class GameController : MonoBehaviour
     public void Lose()
     {
         Debug.Log("You Lose");
-        LoseEvent?.Invoke();
+        LoseEvent?.Invoke(score);
+        Invoke("Restart", 5f); // Temp
+    }
+
+    private void Restart()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 
     public void Update()

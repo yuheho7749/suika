@@ -32,7 +32,7 @@ public class ScoreManager : MonoBehaviour
         loseScreen.SetActive(false);
     }
 
-    public void ShowLoseScreen()
+    public void ShowLoseScreen(int score)
     {
         loseScreen.SetActive(true);
     }
