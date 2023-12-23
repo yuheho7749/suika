@@ -9,11 +9,12 @@ public class SettingsManager : MonoBehaviour
     public GameObject settingsMenu;
     public Slider frictionSlider;
     public Slider bouncinessSlider;
+    public Toggle dynamicDropperEdgeToggle;
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateSlider();
+        UpdateSettingsMenu();
         settingsMenu.SetActive(false);
     }
 
@@ -27,7 +28,7 @@ public class SettingsManager : MonoBehaviour
     {
         GameController.instance.playerInputActions.GameScene.Disable();
         settingsMenu.SetActive(true);
-        UpdateSlider();
+        UpdateSettingsMenu();
         GameController.instance.playerInputActions.SettingsMenu.Enable();
     }
 
@@ -41,16 +42,23 @@ public class SettingsManager : MonoBehaviour
         GameController.instance.gameSettings.physicsMaterial.bounciness = value;
     }
 
-    public void ResetFruitPhysicsSettings()
+    public void OnDynamicDropperEdge(bool value)
     {
-        GameController.instance.gameSettings.physicsMaterial.friction = GameController.instance.gameSettings.defaultPhysicsMaterial.friction;
-        GameController.instance.gameSettings.physicsMaterial.bounciness = GameController.instance.gameSettings.defaultPhysicsMaterial.bounciness;
-        UpdateSlider();
+        GameController.instance.gameSettings.useDynamicDropperEdgeOffset = dynamicDropperEdgeToggle.isOn;
+    }
+
+    public void ResetSettings()
+    {
+        GameController.instance.gameSettings.physicsMaterial.friction = GameController.instance.defaultGameSettings.physicsMaterial.friction;
+        GameController.instance.gameSettings.physicsMaterial.bounciness = GameController.instance.defaultGameSettings.physicsMaterial.bounciness;
+        GameController.instance.gameSettings.useDynamicDropperEdgeOffset = GameController.instance.defaultGameSettings.useDynamicDropperEdgeOffset;
+        UpdateSettingsMenu();
     } 
 
-    private void UpdateSlider()
+    private void UpdateSettingsMenu()
     {
         frictionSlider.value = GameController.instance.gameSettings.physicsMaterial.friction;
         bouncinessSlider.value = GameController.instance.gameSettings.physicsMaterial.bounciness;
+        dynamicDropperEdgeToggle.isOn = GameController.instance.gameSettings.useDynamicDropperEdgeOffset;
     }
 }

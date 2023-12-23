@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Dropper : MonoBehaviour
 {
+    public float clickTolerance = 1;
     private Fruit currentFruit;
     private GameObject currentFruitObject;
 
@@ -63,7 +64,7 @@ public class Dropper : MonoBehaviour
 
     private bool IsMouseInPlayArea()
     {
-        return -GameController.instance.gameSettings.dropperMaxWidth <= mousePos.x &&
-            mousePos.x <= GameController.instance.gameSettings.dropperMaxWidth;
+        return -GameController.instance.gameSettings.dropperMaxWidth - clickTolerance <= mousePos.x &&
+            mousePos.x <= GameController.instance.gameSettings.dropperMaxWidth + clickTolerance;
     }
 }

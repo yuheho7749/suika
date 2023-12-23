@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    public PlayerInputActions playerInputActions; 
+    public PlayerInputActions playerInputActions;
+    public GameSettings defaultGameSettings;
     public GameSettings gameSettings;
 
     private int score = 0;
