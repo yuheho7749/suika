@@ -1,37 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Dropper : MonoBehaviour
 {
     private Fruit currentFruit;
     private GameObject currentFruitObject;
 
+    private Vector3 mousePos;
+
     private void Start()
     {
+        GameController.instance.playerInputActions.GameScene.MousePrimaryClick.started += MousePrimaryClick_started;
         SpawnNewFruit();
+    }
+
+    private void MousePrimaryClick_started(InputAction.CallbackContext obj)
+    {
+        if (currentFruit && IsMouseInPlayArea())
+        {
+            DropFruit();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 relativeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 pixelMousePos = GameController.instance.playerInputActions.GameScene.MousePosition.ReadValue<Vector2>();
+        mousePos = Camera.main.ScreenToWorldPoint(pixelMousePos);
+
         float offset = GameController.instance.gameSettings.fruitList[GameController.instance.gameSettings.maxStartingFruit-1].size / 2;
         if (currentFruit && GameController.instance.gameSettings.useDynamicDropperEdgeOffset)
         {
             offset = currentFruit.size / 2;
         }
 
-        float mouseX = Mathf.Clamp(relativeMousePos.x, 
+        float mouseX = Mathf.Clamp(mousePos.x, 
             -GameController.instance.gameSettings.dropperMaxWidth + offset, 
             GameController.instance.gameSettings.dropperMaxWidth - offset);
 
         gameObject.transform.position = new Vector2(mouseX, gameObject.transform.position.y);
-
-        if (currentFruit && IsMouseInPlayArea(relativeMousePos) && Input.GetMouseButtonDown(0))
-        {
-            DropFruit();
-        }
     }
 
     void SpawnNewFruit()
@@ -52,7 +61,7 @@ public class Dropper : MonoBehaviour
         Invoke("SpawnNewFruit", GameController.instance.gameSettings.dropperSpawnDelay);
     }
 
-    private bool IsMouseInPlayArea(Vector3 mousePos)
+    private bool IsMouseInPlayArea()
     {
         return -GameController.instance.gameSettings.dropperMaxWidth <= mousePos.x &&
             mousePos.x <= GameController.instance.gameSettings.dropperMaxWidth;

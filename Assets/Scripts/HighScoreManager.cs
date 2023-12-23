@@ -13,7 +13,7 @@ public class HighScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameController.instance.LoseEvent.AddListener(SaveHighScore);
+        GameController.instance.GameOverEvent.AddListener(SaveHighScore);
         highscoreboard = GetComponent<TextMeshProUGUI>();
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         highscoreboard.text = String.Format("{0}", highScore);
@@ -30,7 +30,7 @@ public class HighScoreManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameController.instance.LoseEvent.RemoveListener(SaveHighScore);
+        GameController.instance.GameOverEvent.RemoveListener(SaveHighScore);
     }
 
 }

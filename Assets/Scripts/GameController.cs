@@ -7,11 +7,12 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
+    public PlayerInputActions playerInputActions; 
     public GameSettings gameSettings;
 
     private int score = 0;
     public UnityEvent<int> UpdateScoreEvent;
-    public UnityEvent<int> LoseEvent;
+    public UnityEvent<int> GameOverEvent;
 
     public int currentFruitid = 1;
     public int nextFruitid = 1;
@@ -35,15 +36,19 @@ public class GameController : MonoBehaviour
         {
             UpdateScoreEvent = new UnityEvent<int>();
         }
-        if (LoseEvent == null)
+        if (GameOverEvent == null)
         {
-            LoseEvent = new UnityEvent<int>();
+            GameOverEvent = new UnityEvent<int>();
         }
         if (UpdateNextFruitEvent == null)
         {
             UpdateNextFruitEvent = new UnityEvent<int, int>();
         }
+        // Init Player Controls
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.GameScene.Enable();
 
+        // Init game
         Physics2D.gravity = new Vector2(0, gameSettings.gravity);
         BuildFruitDictionaries();
         nextFruitid = Random.Range(1, gameSettings.maxStartingFruit);
@@ -66,9 +71,8 @@ public class GameController : MonoBehaviour
 
     public void Lose()
     {
-        Debug.Log("You Lose");
-        LoseEvent?.Invoke(score);
-        Invoke("Restart", 5f); // Temp
+        playerInputActions.GameScene.Disable();
+        GameOverEvent?.Invoke(score);
     }
 
     public void Restart()
@@ -80,15 +84,6 @@ public class GameController : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
-    }
-
-    public void Update()
-    {
-        // Test Code to switch gravity
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Physics2D.gravity = -Physics2D.gravity;
-        }
     }
 
     public Fruit GetCurrentFruit()
