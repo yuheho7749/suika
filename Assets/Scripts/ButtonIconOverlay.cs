@@ -16,7 +16,7 @@ public class ButtonIconOverlay : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(Toggle);
-        icon.SetActive(false);
+        icon.SetActive(isPressed);
         if (OnToggle == null)
         {
             OnToggle = new UnityEvent<bool>();
