@@ -23,7 +23,7 @@ public class ButtonIconOverlay : MonoBehaviour
         }
     }
 
-    private void Toggle()
+    public void Toggle()
     {
         isPressed = !isPressed;
         if (isPressed)
@@ -36,5 +36,17 @@ public class ButtonIconOverlay : MonoBehaviour
         OnToggle?.Invoke(isPressed);
     }
 
+    public void SetMuteIcon(bool mute)
+    {
+        isPressed = mute;
+        if (isPressed)
+        {
+            icon.SetActive(true);
+        }
+        else
+        {
+            icon.SetActive(false);
+        }
+    }
     
 }

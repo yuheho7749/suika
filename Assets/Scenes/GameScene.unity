@@ -7910,6 +7910,7 @@ MonoBehaviour:
   musicList: {fileID: 1261535683}
   randomizeMusicToggle: {fileID: 767116183}
   musicVolume: {fileID: 2078224443}
+  muteMusicOverlay: {fileID: 111076534}
 --- !u!114 &1251653755
 MonoBehaviour:
   m_ObjectHideFlags: 0

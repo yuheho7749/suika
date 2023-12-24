@@ -14,6 +14,7 @@ public class SettingsManager : MonoBehaviour
     public TMP_Dropdown musicList;
     public Toggle randomizeMusicToggle;
     public Slider musicVolume;
+    public ButtonIconOverlay muteMusicOverlay;
 
     private JukeBox jukebox;
 
@@ -21,6 +22,8 @@ public class SettingsManager : MonoBehaviour
     void Start()
     {
         jukebox = GetComponent<JukeBox>();
+        jukebox.AdjustVolume(PlayerPrefs.GetFloat("MusicVolume", 1));
+        jukebox.SetMute(PlayerPrefs.GetInt("MuteMusic", 0) == 1 ? true : false); 
         UpdateSettingsMenu();
         settingsMenu.SetActive(false);
     }
@@ -89,5 +92,6 @@ public class SettingsManager : MonoBehaviour
         dynamicDropperEdgeToggle.isOn = GameController.instance.gameSettings.useDynamicDropperEdgeOffset;
         musicVolume.value = jukebox.source.volume * 100;
         musicList.value = jukebox.musicIndex;
+        muteMusicOverlay.SetMuteIcon(jukebox.source.mute);
     }
 }

@@ -32,6 +32,8 @@ public class JukeBox : MonoBehaviour
     public void AdjustVolume(float v)
     {
         source.volume = v;
+        PlayerPrefs.SetFloat("MusicVolume", source.volume);
+        PlayerPrefs.Save();
     }
 
     public void SetRandomize(bool r)
@@ -42,5 +44,7 @@ public class JukeBox : MonoBehaviour
     public void SetMute(bool isMute)
     {
         source.mute = isMute;
+        PlayerPrefs.SetInt("MuteMusic", isMute? 1 : 0);
+        PlayerPrefs.Save();
     }
 }
