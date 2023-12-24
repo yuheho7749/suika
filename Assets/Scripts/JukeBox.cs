@@ -19,12 +19,14 @@ public class JukeBox : MonoBehaviour
     void Start()
     {
         
-        PlayNextMusic(0);
+        //PlayNextMusic(0);
     }
 
     public void PlayNextMusic(int index)
     {
         musicIndex = index;
+        PlayerPrefs.SetInt("MusicIndex", index);
+        PlayerPrefs.Save();
         source.clip = musicList[musicIndex];
         source.Play();
     }

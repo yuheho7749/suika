@@ -23,7 +23,8 @@ public class SettingsManager : MonoBehaviour
     {
         jukebox = GetComponent<JukeBox>();
         jukebox.AdjustVolume(PlayerPrefs.GetFloat("MusicVolume", 1));
-        jukebox.SetMute(PlayerPrefs.GetInt("MuteMusic", 0) == 1 ? true : false); 
+        jukebox.SetMute(PlayerPrefs.GetInt("MuteMusic", 0) == 1 ? true : false);
+        jukebox.PlayNextMusic(PlayerPrefs.GetInt("MusicIndex", 0));
         UpdateSettingsMenu();
         settingsMenu.SetActive(false);
     }
