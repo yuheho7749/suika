@@ -54,6 +54,7 @@ public class GameController : MonoBehaviour
         isLost = false;
         Physics2D.gravity = new Vector2(0, gameSettings.gravity);
         BuildFruitDictionaries();
+        currentFruitid = Random.Range(1, gameSettings.maxStartingFruit);
         nextFruitid = Random.Range(1, gameSettings.maxStartingFruit);
     }
 

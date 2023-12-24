@@ -10,10 +10,15 @@ public class JukeBox : MonoBehaviour
     public AudioSource source;
     private bool randomize = false;
 
+    private void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        source = GetComponent<AudioSource>();
+        
         PlayNextMusic(0);
     }
 
