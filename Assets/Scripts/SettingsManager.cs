@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -10,10 +11,16 @@ public class SettingsManager : MonoBehaviour
     public Slider frictionSlider;
     public Slider bouncinessSlider;
     public Toggle dynamicDropperEdgeToggle;
+    public TMP_Dropdown musicList;
+    public Toggle randomizeMusicToggle;
+    public Slider musicVolume;
+
+    private JukeBox jukebox;
 
     // Start is called before the first frame update
     void Start()
     {
+        jukebox = GetComponent<JukeBox>();
         UpdateSettingsMenu();
         settingsMenu.SetActive(false);
     }
@@ -47,6 +54,26 @@ public class SettingsManager : MonoBehaviour
         GameController.instance.gameSettings.useDynamicDropperEdgeOffset = dynamicDropperEdgeToggle.isOn;
     }
 
+    public void ToggleMute(bool value)
+    {
+        jukebox.SetMute(value);
+    }
+
+    public void ChangeMusic(int trackNumber)
+    {
+        jukebox.PlayNextMusic(trackNumber);
+    }
+
+    public void OnRandomizeMusic(bool value)
+    {
+        jukebox.SetRandomize(randomizeMusicToggle.isOn);
+    }
+
+    public void OnMusicVolumeChange(float value)
+    {
+        jukebox.AdjustVolume(value/100);
+    }
+
     public void ResetSettings()
     {
         GameController.instance.gameSettings.physicsMaterial.friction = GameController.instance.defaultGameSettings.physicsMaterial.friction;
@@ -60,5 +87,7 @@ public class SettingsManager : MonoBehaviour
         frictionSlider.value = GameController.instance.gameSettings.physicsMaterial.friction;
         bouncinessSlider.value = GameController.instance.gameSettings.physicsMaterial.bounciness;
         dynamicDropperEdgeToggle.isOn = GameController.instance.gameSettings.useDynamicDropperEdgeOffset;
+        musicVolume.value = jukebox.source.volume * 100;
+        musicList.value = jukebox.musicIndex;
     }
 }
