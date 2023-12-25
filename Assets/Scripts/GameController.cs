@@ -143,9 +143,13 @@ public class GameController : MonoBehaviour
         // Spawn new fruit if possible (If two watermelon merge, no new fruit is created)
         if (newFruitid < gameSettings.fruitList.Length)
         {
+            float correctSize = gameSettings.fruitList[newFruitid].size;
+
+            // Add small explosion to make room
+            MergeExplosion(newPos, correctSize / 2);
+
             // Create new fruit
             GameObject newFruit = Instantiate(gameSettings.fruitList[newFruitid].fruitPrefab);
-            float correctSize = gameSettings.fruitList[newFruitid].size;
             newFruit.transform.localScale = new Vector3(correctSize, correctSize, correctSize);
             newFruit.transform.position = newPos;
 
@@ -154,8 +158,7 @@ public class GameController : MonoBehaviour
             fp.GetComponent<Collider2D>().enabled = true;
             fp.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
 
-            // Add small explosion to make room
-            MergeExplosion(newPos, correctSize/2);
+           
         }
 
 
@@ -164,6 +167,11 @@ public class GameController : MonoBehaviour
 
     private void MergeExplosion(Vector2 explosionCenter, float radius)
     {
+        if (gameSettings.mergeExplosionForce == 0)
+        {
+            return;
+        }
+
         // Merge explosion
         Collider2D[] colliders = Physics2D.OverlapCircleAll(explosionCenter, radius * gameSettings.mergeExplosionRadiusModifier, LayerMask.GetMask("Fruit"));
         foreach (Collider2D hit in colliders)

@@ -60,6 +60,16 @@ public class SettingsManager : MonoBehaviour
     public void OnMergeExplosionForceChange(float value)
     {
         GameController.instance.gameSettings.mergeExplosionForce = value;
+        if (GameController.instance.gameSettings.mergeExplosionForce == 0)
+        {
+            mergeExplosionRadiusModifierSlider.interactable = false;
+            mergeExplosionUpwardsModifierSlider.interactable = false;
+        }
+        else
+        {
+            mergeExplosionRadiusModifierSlider.interactable = true;
+            mergeExplosionUpwardsModifierSlider.interactable = true;
+        }
     }
 
     public void OnMergeExplosionRadiusModifierChange(float value)
@@ -113,9 +123,20 @@ public class SettingsManager : MonoBehaviour
     {
         frictionSlider.value = GameController.instance.gameSettings.physicsMaterial.friction;
         bouncinessSlider.value = GameController.instance.gameSettings.physicsMaterial.bounciness;
+
         mergeExplosionForceSlider.value = GameController.instance.gameSettings.mergeExplosionForce;
         mergeExplosionRadiusModifierSlider.value = GameController.instance.gameSettings.mergeExplosionRadiusModifier;
         mergeExplosionUpwardsModifierSlider.value = GameController.instance.gameSettings.mergeExplosionUpwardsModifier;
+        if (GameController.instance.gameSettings.mergeExplosionForce == 0)
+        {
+            mergeExplosionRadiusModifierSlider.interactable = false;
+            mergeExplosionUpwardsModifierSlider.interactable = false;
+        }
+        else
+        {
+            mergeExplosionRadiusModifierSlider.interactable = true;
+            mergeExplosionUpwardsModifierSlider.interactable = true;
+        }
 
         dynamicDropperEdgeToggle.isOn = GameController.instance.gameSettings.useDynamicDropperEdgeOffset;
 
