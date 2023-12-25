@@ -17,7 +17,7 @@ MonoBehaviour:
   useDynamicDropperEdgeOffset: 0
   maxStartingFruit: 6
   physicsMaterial: {fileID: 6200000, guid: 3e4fa61193b0bfc43830228b2c5c4dee, type: 2}
-  mergeExplosionForce: 2
+  mergeExplosionForce: 1
   mergeExplosionRadiusModifier: 1.2
   mergeExplosionUpwardsModifier: 0
   fruitList:
