@@ -46,6 +46,7 @@ public class Dropper : MonoBehaviour
 
     void SpawnNewFruit()
     {
+        GameController.instance.ConsumeCurrentFruit();
         currentFruit = GameController.instance.GetCurrentFruit();
         currentFruitObject = Instantiate(currentFruit.fruitPrefab, transform);
 
@@ -66,7 +67,6 @@ public class Dropper : MonoBehaviour
         FruitPhysics fp = currentFruitObject.GetComponent<FruitPhysics>();
         fp.type = currentFruit;
         fp.Drop(this);
-        GameController.instance.ConsumeCurrentFruit();
         currentFruit = null;
     }
 

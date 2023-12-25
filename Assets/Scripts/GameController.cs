@@ -146,7 +146,7 @@ public class GameController : MonoBehaviour
             float correctSize = gameSettings.fruitList[newFruitid].size;
 
             // Add small explosion to make room
-            MergeExplosion(newPos, correctSize / 2);
+            MergeExplosion(newPos, correctSize);
 
             // Create new fruit
             GameObject newFruit = Instantiate(gameSettings.fruitList[newFruitid].fruitPrefab);
@@ -165,15 +165,26 @@ public class GameController : MonoBehaviour
         return true;
     }
 
-    private void MergeExplosion(Vector2 explosionCenter, float radius)
+    private void MergeExplosion(Vector2 explosionCenter, float size)
     {
         if (gameSettings.mergeExplosionForce == 0)
         {
             return;
         }
 
+        // Merge explosion test
+        /*
+        GameObject o = Instantiate(gameSettings.fruitList[0].fruitPrefab);
+        o.transform.localScale = new Vector3(1, 1, 1);
+        o.GetComponent<SpriteRenderer>().enabled = false;
+        o.transform.position = explosionCenter;
+        o.GetComponent<CircleCollider2D>().radius = (size * 0.5f) * gameSettings.mergeExplosionRadiusModifier;
+        o.GetComponent<CircleCollider2D>().isTrigger = true;
+        o.GetComponent<CircleCollider2D>().enabled = true;
+        */
+
         // Merge explosion
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(explosionCenter, radius * gameSettings.mergeExplosionRadiusModifier, LayerMask.GetMask("Fruit"));
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(explosionCenter, (size * 0.5f) * gameSettings.mergeExplosionRadiusModifier, LayerMask.GetMask("Fruit"));
         foreach (Collider2D hit in colliders)
         {
             Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
