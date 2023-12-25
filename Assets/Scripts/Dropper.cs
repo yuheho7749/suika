@@ -51,15 +51,23 @@ public class Dropper : MonoBehaviour
 
         currentFruitObject.transform.localScale = new Vector3(currentFruit.size, currentFruit.size, currentFruit.size);
     }
+    public bool SpawnNewFruitAfterPreviousCollide(FruitPhysics fp)
+    {
+        if (fp.gameObject == currentFruitObject)
+        {
+            SpawnNewFruit();
+            return true;
+        }
+        return false;
+    }
 
     void DropFruit()
     {
         FruitPhysics fp = currentFruitObject.GetComponent<FruitPhysics>();
         fp.type = currentFruit;
-        fp.Drop();
+        fp.Drop(this);
         GameController.instance.ConsumeCurrentFruit();
         currentFruit = null;
-        Invoke("SpawnNewFruit", GameController.instance.gameSettings.dropperSpawnDelay);
     }
 
     private bool IsMouseInPlayArea()

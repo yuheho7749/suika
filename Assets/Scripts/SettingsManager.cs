@@ -10,6 +10,10 @@ public class SettingsManager : MonoBehaviour
     public GameObject settingsMenu;
     public Slider frictionSlider;
     public Slider bouncinessSlider;
+    public Slider mergeExplosionForceSlider;
+    public Slider mergeExplosionRadiusModifierSlider;
+    public Slider mergeExplosionUpwardsModifierSlider;
+
     public Toggle dynamicDropperEdgeToggle;
     public TMP_Dropdown musicList;
     public Toggle randomizeMusicToggle;
@@ -53,6 +57,21 @@ public class SettingsManager : MonoBehaviour
         GameController.instance.gameSettings.physicsMaterial.bounciness = value;
     }
 
+    public void OnMergeExplosionForceChange(float value)
+    {
+        GameController.instance.gameSettings.mergeExplosionForce = value;
+    }
+
+    public void OnMergeExplosionRadiusModifierChange(float value)
+    {
+        GameController.instance.gameSettings.mergeExplosionRadiusModifier = value;
+    }
+
+    public void OnMergeExplosionUpwardsModifierChange(float value)
+    {
+        GameController.instance.gameSettings.mergeExplosionUpwardsModifier = value;
+    }
+
     public void OnDynamicDropperEdge(bool value)
     {
         GameController.instance.gameSettings.useDynamicDropperEdgeOffset = dynamicDropperEdgeToggle.isOn;
@@ -82,6 +101,10 @@ public class SettingsManager : MonoBehaviour
     {
         GameController.instance.gameSettings.physicsMaterial.friction = GameController.instance.defaultGameSettings.physicsMaterial.friction;
         GameController.instance.gameSettings.physicsMaterial.bounciness = GameController.instance.defaultGameSettings.physicsMaterial.bounciness;
+        GameController.instance.gameSettings.mergeExplosionForce = GameController.instance.defaultGameSettings.mergeExplosionForce;
+        GameController.instance.gameSettings.mergeExplosionRadiusModifier = GameController.instance.defaultGameSettings.mergeExplosionRadiusModifier;
+        GameController.instance.gameSettings.mergeExplosionUpwardsModifier = GameController.instance.defaultGameSettings.mergeExplosionUpwardsModifier;
+        
         GameController.instance.gameSettings.useDynamicDropperEdgeOffset = GameController.instance.defaultGameSettings.useDynamicDropperEdgeOffset;
         UpdateSettingsMenu();
     } 
@@ -90,7 +113,12 @@ public class SettingsManager : MonoBehaviour
     {
         frictionSlider.value = GameController.instance.gameSettings.physicsMaterial.friction;
         bouncinessSlider.value = GameController.instance.gameSettings.physicsMaterial.bounciness;
+        mergeExplosionForceSlider.value = GameController.instance.gameSettings.mergeExplosionForce;
+        mergeExplosionRadiusModifierSlider.value = GameController.instance.gameSettings.mergeExplosionRadiusModifier;
+        mergeExplosionUpwardsModifierSlider.value = GameController.instance.gameSettings.mergeExplosionUpwardsModifier;
+
         dynamicDropperEdgeToggle.isOn = GameController.instance.gameSettings.useDynamicDropperEdgeOffset;
+
         musicVolume.value = jukebox.source.volume * 100;
         musicList.value = jukebox.musicIndex;
         muteMusicOverlay.SetMuteIcon(jukebox.source.mute);

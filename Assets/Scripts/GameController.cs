@@ -130,16 +130,17 @@ public class GameController : MonoBehaviour
         Vector2 newPos = new Vector2((fruit1.transform.position.x + fruit2.transform.position.x) / 2,
                                       (fruit1.transform.position.y + fruit2.transform.position.y) / 2);
 
-        // Remove old fruit
+        // Remove old fruit (Merged)
         fruit1.valid = false;
         fruit2.valid = false;
         Destroy(fruit1.gameObject);
         Destroy(fruit2.gameObject);
 
+
         // Update Score
         ChangeScore(idToPoints[originalFruitid]);
 
-        // Merge fruit if possible. Otherwise (in watermelon's case), disappear.
+        // Spawn new fruit if possible (If two watermelon merge, no new fruit is created)
         if (newFruitid < gameSettings.fruitList.Length)
         {
             // Create new fruit
@@ -152,9 +153,32 @@ public class GameController : MonoBehaviour
             fp.type = gameSettings.fruitList[newFruitid];
             fp.GetComponent<Collider2D>().enabled = true;
             fp.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+
+            // Add small explosion to make room
+            MergeExplosion(newPos, correctSize/2);
         }
 
 
         return true;
+    }
+
+    private void MergeExplosion(Vector2 explosionCenter, float radius)
+    {
+        // Merge explosion
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(explosionCenter, radius * gameSettings.mergeExplosionRadiusModifier, LayerMask.GetMask("Fruit"));
+        foreach (Collider2D hit in colliders)
+        {
+            Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
+            Vector2 hitPos = new Vector2(hit.transform.position.x, hit.transform.position.y);
+            Vector2 explosionDir = hitPos - explosionCenter;
+            explosionDir.Normalize();
+            explosionDir.y += gameSettings.mergeExplosionUpwardsModifier;
+            explosionDir.Normalize();
+            if (rb != null)
+            {
+                //rb.AddForce(explosionDir * Mathf.Lerp(0f, gameSettings.mergeExplosionForce, (1 - Vector2.Distance(hitPos, explosionCenter))), ForceMode2D.Impulse);
+                rb.AddForce(explosionDir * gameSettings.mergeExplosionForce, ForceMode2D.Impulse);
+            }
+        }
     }
 }

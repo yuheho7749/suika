@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: -9.8
   dropperMaxWidth: 3.1
-  dropperSpawnDelay: 0.5
   useDynamicDropperEdgeOffset: 0
   maxStartingFruit: 6
   physicsMaterial: {fileID: 6200000, guid: 3e4fa61193b0bfc43830228b2c5c4dee, type: 2}
+  mergeExplosionForce: 1
+  mergeExplosionRadiusModifier: 1
+  mergeExplosionUpwardsModifier: 0
   fruitList:
   - {fileID: 11400000, guid: 15b1b54501c8692458956b7b5af46baf, type: 2}
   - {fileID: 11400000, guid: 77ec5b95160029d4e8177860c5717a23, type: 2}

@@ -13,6 +13,9 @@ public class FruitPhysics : MonoBehaviour
 
     public bool valid = true;
 
+    private Dropper dropper;
+    private bool isFirstCol = true;
+
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -21,8 +24,9 @@ public class FruitPhysics : MonoBehaviour
         valid = true;
     }
 
-    public void Drop()
+    public void Drop(Dropper source)
     {
+        dropper = source; 
         transform.parent = null;
         col.enabled = true;
         rb.constraints = RigidbodyConstraints2D.None;
@@ -31,11 +35,21 @@ public class FruitPhysics : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
+
+        // Tell Dropper to make new fruit
+        if (isFirstCol && dropper)
+        {
+            isFirstCol = !dropper.SpawnNewFruitAfterPreviousCollide(this);
+        }
+
         if (!other.CompareTag("Fruit"))
         {
             return;
         }
 
+        
+
+        // Call merger
         FruitPhysics otherFruitPhysics = other.GetComponent<FruitPhysics>();
         if (valid && otherFruitPhysics.valid && otherFruitPhysics.type.size == this.type.size)
         {
