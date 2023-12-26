@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
 
     private int score = 0;
     public UnityEvent<int> UpdateScoreEvent;
-    private bool isLost;
+    public bool isLost;
     public UnityEvent<int> GameOverEvent;
 
     public int currentFruitid = 1;

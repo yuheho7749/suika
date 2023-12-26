@@ -22,6 +22,7 @@ public class FruitPhysics : MonoBehaviour
         col = gameObject.GetComponent<CircleCollider2D>();
         rb.sharedMaterial = GameController.instance.gameSettings.physicsMaterial;
         valid = true;
+        GameController.instance.GameOverEvent.AddListener(Freeze);
     }
 
     public void Drop(Dropper source)
@@ -55,5 +56,10 @@ public class FruitPhysics : MonoBehaviour
         {
             GameController.instance.HandleFruitMerge(this, otherFruitPhysics, this.type.size);
         }
+    }
+
+    private void Freeze(int score)
+    {
+        rb.simulated = false;
     }
 }

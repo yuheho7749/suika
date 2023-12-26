@@ -13,13 +13,11 @@ public class ScoreManager : MonoBehaviour
     
     public GameObject gameOverScreen;
 
-
     // Start is called before the first frame update
     void Start()
     {
         GameController.instance.UpdateScoreEvent.AddListener(UpdateScore);
         GameController.instance.GameOverEvent.AddListener(ShowGameOverScreen);
-        GameController.instance.playerInputActions.GameOverScreen.MousePrimaryClick.started += CloseGameOverScreen;
         scoreboard = GetComponent<TextMeshProUGUI>();
         scoreboard.text = "0";
         HideGameOverScreen();
@@ -41,15 +39,6 @@ public class ScoreManager : MonoBehaviour
     {
         gameOverScreen.SetActive(true);
         GameController.instance.playerInputActions.GameOverScreen.Enable();
-    }
-
-    public void CloseGameOverScreen(InputAction.CallbackContext obj)
-    {
-        if (gameOverScreen)
-        {
-            gameOverScreen.SetActive(false);
-            GameController.instance.playerInputActions.GameOverScreen.Disable();
-        } 
     }
 
     private void OnDestroy()

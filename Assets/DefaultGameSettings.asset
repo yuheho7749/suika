@@ -18,7 +18,7 @@ MonoBehaviour:
   maxStartingFruit: 6
   physicsMaterial: {fileID: 6200000, guid: 3e4fa61193b0bfc43830228b2c5c4dee, type: 2}
   mergeExplosionForce: 1
-  mergeExplosionRadiusModifier: 1.2
+  mergeExplosionRadiusModifier: 1
   mergeExplosionUpwardsModifier: 0
   fruitList:
   - {fileID: 11400000, guid: 15b1b54501c8692458956b7b5af46baf, type: 2}

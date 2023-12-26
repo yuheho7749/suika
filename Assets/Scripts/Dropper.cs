@@ -19,7 +19,7 @@ public class Dropper : MonoBehaviour
 
     private void MousePrimaryClick_started(InputAction.CallbackContext obj)
     {
-        if (currentFruit && IsMouseInPlayArea())
+        if (!GameController.instance.isLost && currentFruit && currentFruitObject && IsMouseInPlayArea())
         {
             DropFruit();
         }
@@ -28,6 +28,15 @@ public class Dropper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameController.instance.isLost)
+        {
+            if (currentFruitObject.transform.parent == transform)
+            {
+                currentFruitObject.SetActive(false);
+            }
+            return;
+        }
+
         Vector2 pixelMousePos = GameController.instance.playerInputActions.GameScene.MousePosition.ReadValue<Vector2>();
         mousePos = Camera.main.ScreenToWorldPoint(pixelMousePos);
 

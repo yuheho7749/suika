@@ -22,6 +22,9 @@ public class SettingsManager : MonoBehaviour
 
     private JukeBox jukebox;
 
+    private bool isPlaying = false;
+    private bool isLost = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,13 +38,23 @@ public class SettingsManager : MonoBehaviour
 
     public void HideSettingsMenu()
     {
-        GameController.instance.playerInputActions.GameScene.Enable();
+        if (isPlaying)
+        {
+            GameController.instance.playerInputActions.GameScene.Enable();
+        }
+        if (isLost)
+        {
+            GameController.instance.playerInputActions.GameScene.Enable();
+        }
         settingsMenu.SetActive(false);
         GameController.instance.playerInputActions.SettingsMenu.Disable();
     }
     public void ShowSettingsMenu()
     {
+        isPlaying = GameController.instance.playerInputActions.GameScene.enabled;
+        isLost = GameController.instance.playerInputActions.GameOverScreen.enabled;
         GameController.instance.playerInputActions.GameScene.Disable();
+        GameController.instance.playerInputActions.GameOverScreen.Disable();
         settingsMenu.SetActive(true);
         UpdateSettingsMenu();
         GameController.instance.playerInputActions.SettingsMenu.Enable();
@@ -59,7 +72,7 @@ public class SettingsManager : MonoBehaviour
 
     public void OnMergeExplosionForceChange(float value)
     {
-        GameController.instance.gameSettings.mergeExplosionForce = value;
+        GameController.instance.gameSettings.mergeExplosionForce = value / 10f; // Hack to align on decimal digit
         if (GameController.instance.gameSettings.mergeExplosionForce == 0)
         {
             mergeExplosionRadiusModifierSlider.interactable = false;
@@ -124,7 +137,7 @@ public class SettingsManager : MonoBehaviour
         frictionSlider.value = GameController.instance.gameSettings.physicsMaterial.friction;
         bouncinessSlider.value = GameController.instance.gameSettings.physicsMaterial.bounciness;
 
-        mergeExplosionForceSlider.value = GameController.instance.gameSettings.mergeExplosionForce;
+        mergeExplosionForceSlider.value = GameController.instance.gameSettings.mergeExplosionForce * 10f; // Part of hack
         mergeExplosionRadiusModifierSlider.value = GameController.instance.gameSettings.mergeExplosionRadiusModifier;
         mergeExplosionUpwardsModifierSlider.value = GameController.instance.gameSettings.mergeExplosionUpwardsModifier;
         if (GameController.instance.gameSettings.mergeExplosionForce == 0)

@@ -7,6 +7,7 @@ using System;
 
 public class SliderValue : MonoBehaviour
 {
+    public float sliderMod = 1f;
     private Slider slider;
     private TextMeshProUGUI valuePanel;
 
@@ -19,6 +20,6 @@ public class SliderValue : MonoBehaviour
 
     private void FixedUpdate()
     {
-        valuePanel.text = String.Format("{0:0.##}", slider.value);
+        valuePanel.text = String.Format("{0:0.##}", slider.value * sliderMod);
     }
 }
