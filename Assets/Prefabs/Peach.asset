@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a844bb61d041ed24eafe9ac2cdf73fdd, type: 3}
   m_Name: Peach
   m_EditorClassIdentifier: 
-  size: 2.25
+  size: 2.2
   fruitPrefab: {fileID: 6266706343704525715, guid: c3f02ff19dfb15c44a871d8df4a3a669, type: 3}
