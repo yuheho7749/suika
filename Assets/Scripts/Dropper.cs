@@ -77,7 +77,7 @@ public class Dropper : MonoBehaviour
         fp.type = currentFruit;
         fp.Drop(this);
         currentFruit = null;
-        GameController.instance.OnFruitDrop?.Invoke();
+        GameController.instance.soundFXManager.PlayDropSoundFX();
 
     }
 

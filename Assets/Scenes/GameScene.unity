@@ -10662,12 +10662,7 @@ MonoBehaviour:
   UpdateNextFruitEvent:
     m_PersistentCalls:
       m_Calls: []
-  OnFruitMerge:
-    m_PersistentCalls:
-      m_Calls: []
-  OnFruitDrop:
-    m_PersistentCalls:
-      m_Calls: []
+  soundFXManager: {fileID: 0}
 --- !u!114 &1251653754
 MonoBehaviour:
   m_ObjectHideFlags: 0

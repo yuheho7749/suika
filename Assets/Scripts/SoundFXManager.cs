@@ -20,12 +20,6 @@ public class SoundFXManager : MonoBehaviour
         
     }
 
-    private void Start()
-    {
-        GameController.instance.OnFruitMerge.AddListener(PlayMergeSoundFX);
-        GameController.instance.OnFruitDrop.AddListener(PlayDropSoundFX);
-    }
-
     public void AdjustVolume(float v)
     {
         source.volume = v;
