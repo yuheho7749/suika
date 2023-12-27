@@ -14,14 +14,9 @@ public class JukeBox : MonoBehaviour
     private void Awake()
     {
         source = GetComponent<AudioSource>();
+        source.loop = true;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        //PlayNextMusic(0);
-    }
 
     public void PlayNextMusic(int index)
     {
