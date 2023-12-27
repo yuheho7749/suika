@@ -20,7 +20,11 @@ public class SettingsManager : MonoBehaviour
     public Slider musicVolume;
     public ButtonIconOverlay muteMusicOverlay;
 
+    public Slider soundFXVolume;
+    public ButtonIconOverlay muteSoundFXOverlay;
+
     private JukeBox jukebox;
+    private SoundFXManager soundFXManager;
 
     private bool isPlaying = false;
     private bool isLost = false;
@@ -28,10 +32,15 @@ public class SettingsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        jukebox = GetComponent<JukeBox>();
+        jukebox = GetComponentInChildren<JukeBox>();
         jukebox.AdjustVolume(PlayerPrefs.GetFloat("MusicVolume", 1));
         jukebox.SetMute(PlayerPrefs.GetInt("MuteMusic", 0) == 1 ? true : false);
         jukebox.PlayNextMusic(PlayerPrefs.GetInt("MusicIndex", 0));
+
+        soundFXManager = GetComponentInChildren<SoundFXManager>();
+        soundFXManager.AdjustVolume(PlayerPrefs.GetFloat("SoundFXVolume", 1));
+        soundFXManager.SetMute(PlayerPrefs.GetInt("MuteSoundFX", 0) == 1 ? true : false);
+
         UpdateSettingsMenu();
         settingsMenu.SetActive(false);
     }
@@ -100,7 +109,7 @@ public class SettingsManager : MonoBehaviour
         GameController.instance.gameSettings.useDynamicDropperEdgeOffset = dynamicDropperEdgeToggle.isOn;
     }
 
-    public void ToggleMute(bool value)
+    public void ToggleMuteMusic(bool value)
     {
         jukebox.SetMute(value);
     }
@@ -118,6 +127,16 @@ public class SettingsManager : MonoBehaviour
     public void OnMusicVolumeChange(float value)
     {
         jukebox.AdjustVolume(value/100);
+    }
+
+    public void ToggleMuteSoundFX(bool value)
+    {
+        soundFXManager.SetMute(value);
+    }
+
+    public void OnSoundFXVolumeChange(float value)
+    {
+        soundFXManager.AdjustVolume(value / 100);
     }
 
     public void ResetSettings()
@@ -156,5 +175,8 @@ public class SettingsManager : MonoBehaviour
         musicVolume.value = jukebox.source.volume * 100;
         musicList.value = jukebox.musicIndex;
         muteMusicOverlay.SetMuteIcon(jukebox.source.mute);
+
+        soundFXVolume.value = soundFXManager.source.volume * 100;
+        muteSoundFXOverlay.SetMuteIcon(soundFXManager.source.mute);
     }
 }

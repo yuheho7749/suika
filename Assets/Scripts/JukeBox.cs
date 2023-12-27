@@ -7,6 +7,7 @@ public class JukeBox : MonoBehaviour
     public int musicIndex = 0;
     public AudioClip[] musicList;
 
+    [HideInInspector]
     public AudioSource source;
     private bool randomize = false;
 

@@ -12,13 +12,21 @@ public class GameController : MonoBehaviour
     public GameSettings gameSettings;
 
     private int score = 0;
+    [HideInInspector]
     public UnityEvent<int> UpdateScoreEvent;
     public bool isLost;
+    [HideInInspector]
     public UnityEvent<int> GameOverEvent;
 
     public int currentFruitid = 1;
     public int nextFruitid = 1;
+    [HideInInspector]
     public UnityEvent<int, int> UpdateNextFruitEvent;
+
+    [HideInInspector]
+    public UnityEvent OnFruitMerge;
+    [HideInInspector]
+    public UnityEvent OnFruitDrop;
 
     private Dictionary<float, int> sizeToFruitid;
     private Dictionary<int, int> idToPoints;
@@ -45,6 +53,14 @@ public class GameController : MonoBehaviour
         if (UpdateNextFruitEvent == null)
         {
             UpdateNextFruitEvent = new UnityEvent<int, int>();
+        }
+        if (OnFruitMerge == null)
+        {
+            OnFruitMerge = new UnityEvent();
+        }
+        if (OnFruitDrop == null)
+        {
+            OnFruitDrop = new UnityEvent();
         }
         // Init Player Controls
         playerInputActions = new PlayerInputActions();
@@ -123,6 +139,10 @@ public class GameController : MonoBehaviour
 
     public bool HandleFruitMerge(FruitPhysics fruit1, FruitPhysics fruit2, float originalSize)
     {
+        // Trigger merge soundFX
+        OnFruitMerge?.Invoke();
+
+
         int originalFruitid = sizeToFruitid[originalSize];
         int newFruitid = originalFruitid + 1;
 
@@ -135,7 +155,6 @@ public class GameController : MonoBehaviour
         fruit2.valid = false;
         Destroy(fruit1.gameObject);
         Destroy(fruit2.gameObject);
-
 
         // Update Score
         ChangeScore(idToPoints[originalFruitid]);
