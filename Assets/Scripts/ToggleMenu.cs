@@ -13,6 +13,8 @@ public class ToggleMenu : MonoBehaviour
     public Vector3 originalIconRotation;
     public Vector3 hiddenIconRotation;
 
+    public GameObject background;
+
     public float animationTime = 1f;
 
     private bool isHidden = false;
@@ -31,12 +33,14 @@ public class ToggleMenu : MonoBehaviour
             //buttonIcon.transform.localRotation = Quaternion.Euler(originalIconRotation);
             LeanTween.rotateLocal(buttonIcon, originalIconRotation, animationTime).setEaseInOutBack();
             LeanTween.moveLocal(gameObject, originalPos, animationTime).setEaseOutElastic();
+            background.SetActive(true);
         } 
         else
         {
             //buttonIcon.transform.localRotation = Quaternion.Euler(hiddenIconRotation);
             LeanTween.rotateLocal(buttonIcon, hiddenIconRotation, animationTime).setEaseInOutBack();
             LeanTween.moveLocal(gameObject, hidePos, animationTime).setEaseOutElastic();
+            background.SetActive(false);
         }
         isHidden = !isHidden;
     }
